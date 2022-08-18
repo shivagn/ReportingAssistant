@@ -1,0 +1,26 @@
+﻿@model List<Reporting.DomainModels.Task>
+
+<div class="tab-content">
+
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        <br />
+        <div class="card">
+            <div class="card-header">
+                @Html.TextBoxFor(temp => Model[i].Screen, new { placeholder = Model[i].Screen, @class = "form-control" })
+            </div>
+
+            <div class="card-body">
+                <p>
+                    @Html.TextBoxFor(temp => Model[i].Description, new { placeholder = Model[i].Description, @class = "form-control" })
+                </p>
+            </div>
+
+            <div>
+                @Html.HiddenFor(temp => Model[i].TaskID)
+                @Html.HiddenFor(temp => Model[i].AdminUserID)
+                @Html.HiddenFor(temp => Model[i].DateOfTask)
+            </div>
+        </div>
+    }
+</div>

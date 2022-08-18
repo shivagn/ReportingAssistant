@@ -1,0 +1,15 @@
+﻿@model List<Reporting.DomainModels.TaskDone>
+
+@foreach (var item in Model)
+{
+    <br />
+    <div class="card">
+        <div class="card-header">
+            @Html.DisplayFor(temp => item.Screen, new { placeholder = item.Screen, @class = "form-control" })
+        </div>
+
+        <div class="card-body">
+            @Html.DisplayFor(temp => item.Description, new { placeholder = item.Description, @class = "form-control" })
+        </div>
+    </div>
+}

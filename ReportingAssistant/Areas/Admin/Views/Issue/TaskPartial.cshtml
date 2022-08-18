@@ -1,0 +1,20 @@
+﻿@model Reporting.DomainModels.Task
+
+
+<div class="card">
+    <div class="card-header">
+        @Html.TextBoxFor(temp => temp.Screen, new { placeholder = Model.Screen, @class = "form-control" })
+    </div>
+
+    <div class="card-body">
+        <p>
+            @Html.TextBoxFor(temp => temp.Description, new { placeholder = Model.Description, @class = "form-control" })
+        </p>
+    </div>
+
+    <div>
+        @Html.HiddenFor(temp => temp.TaskID)
+        @Html.HiddenFor(temp => temp.AdminUserID)
+        @Html.HiddenFor(temp => temp.DateOfTask)
+    </div>
+</div>

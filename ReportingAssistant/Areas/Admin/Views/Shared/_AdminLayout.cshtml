@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="~/Scripts/popper.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/jquery-3.6.0.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <title>@ViewBag.Title</title>
+
+    <style>
+        .field-validation-error, .validation-summary-errors {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <header></header>
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-1" style="background-color:darkcyan; min-height:1050px; padding:0px ">
+                <div class="list-group">
+                    <a class="list-group-item" style="background-color:darkcyan" href="~/Home/Index">Home</a>
+                    <a class="list-group-item" style="background-color:darkcyan" href="~/Home/Sarch">Search</a>
+                </div>
+
+            </div>
+            <div class="col-md-2" style="background-color:azure; min-height:1050px; padding:0px ">
+                <div class="list-group">
+                    <div style="position:center"><h3>Reporting Assistant</h3></div>
+
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <div style="text-align:left; color:white"><a href="~/Account/UserProfile"> @User.Identity.Name </a></div>
+                       
+                            <div><h6>Admin</h6></div>
+                            <br/>
+
+                            <div class="list-group">
+                                @Html.ActionLink("Home", "Index", "Home", new { area = "Admin" }, new { @class = "list-group-item", style = "background-color:azure" })
+                                @Html.ActionLink("Issues", "Issues", "Issue", new { area = "Admin" }, new { @class = "list-group-item", style = "background-color:azure" })
+                                @Html.ActionLink("My Issues", "Index", "Home", new { area = "Admin" }, new { @class = "list-group-item", style = "background-color:azure" })
+                                @Html.ActionLink("Issues History", "Index", "Home", new { area = "Admin" }, new { @class = "list-group-item", style = "background-color:azure" })
+                                @Html.ActionLink("Users", "Index", "Home", new { area = "Admin" }, new { @class = "list-group-item", style = "background-color:azure" })
+                                @Html.ActionLink("Profile", "Index", "Home", new { area = "Admin" }, new { @class = "list-group-item", style = "background-color:azure" })
+                                @Html.ActionLink("Masters", "Index", "Home", new { area = "Admin" }, new { @class = "list-group-item", style = "background-color:azure" })
+                                <ul>
+                                    <li>@Html.ActionLink("Categories", "Index", "Category", new { area = "Admin" }, new { @class = "list-group-item", style = "background-color:azure" })</li>
+                                    <li>@Html.ActionLink("Projects", "Index", "Project", new { area = "Admin" }, new { @class = "list-group-item", style = "background-color:azure" })</li>
+                                </ul>
+                                @Html.ActionLink("Logout", "Logout", "Account", new { @class = "list-group-item", style = "background-color:azure" })
+
+                            </div>
+                        
+                        
+                    }
+                    else
+                    {
+                        <div style="text-align:left"><h5>Please Login</h5></div>
+
+                        <div class="list-group">
+                            <a class="list-group-item" style="background-color:azure" href="~/Account/Register">Register</a>
+                            <a class="list-group-item" style="background-color:azure" href="~/Account/Login">Login</a>
+                        </div>
+                    }
+
+                    @RenderSection("SideMenu", required: false)
+                </div>
+            </div>
+
+            <div class="container col-lg-9" style="min-height:610px">
+                <main role="main" class="pb-3">
+                    @RenderBody()
+                </main>
+            </div>
+        </div>
+    </div>
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - MVCtest - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+</body>
+</html>

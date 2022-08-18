@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Reporting.DomainModels.Project>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<br/>
+<div>
+    <table>
+        <tr>
+            <td class="col-11">
+                @Html.TextBox("Search")
+                <button class="btn btn-primary" id="Search">Search</button>
+            </td>
+            <td class="col-1">
+                <p >
+                    @Html.ActionLink("Create New", "Create")
+                </p>
+            </td>
+        </tr>
+    </table>
+   
+</div>
+<br/>
+<table class="table">
+    <tr class="table-primary">
+        <th>
+            @Html.DisplayNameFor(model => model.Photo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProjectName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateOfStart)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AvailabilityStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category)
+        </th>
+
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            <img src="data:image;base64,@item.Photo" style="width:80px; height:80px;" id="Photo" name="Photo" />
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProjectName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateOfStart)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AvailabilityStatus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category.CategoryName)
+        </td>
+
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.ProjectID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ProjectID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ProjectID })
+        </td>
+    </tr>
+}
+
+</table>

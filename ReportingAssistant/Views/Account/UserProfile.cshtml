@@ -1,0 +1,50 @@
+﻿@model Reporting.DomainModels.ViewModels.UserProfile
+
+@{
+    ViewBag.Title = "UserProfile";
+}
+
+<h2>My Profile</h2>
+
+<div class="container">
+
+    @if (!User.Identity.IsAuthenticated)
+    {
+        Html.ActionLink("Login", "Account");
+    }
+    else
+    {
+
+        <table class="table table-bordered modal-fullscreen">
+            <tr class="col-12">
+                <th class="col-md-6">@Html.LabelFor(temp => temp.userName)</th>
+                <td class="col-md-6"> @Html.DisplayFor(temp => temp.userName)</td>
+            </tr>
+            <tr>
+                <th class="col-md-6">@Html.LabelFor(temp => temp.Email)</th>
+                <td class="col-md-6"> @Html.DisplayFor(temp => temp.Email)</td>
+            </tr>
+            <tr>
+                <th class="col-md-6">@Html.LabelFor(temp => temp.Mobile)</th>
+                <td class="col-md-6"> @Html.DisplayFor(temp => temp.Mobile)</td>
+            </tr>
+            <tr>
+                <th class="col-md-6">@Html.LabelFor(temp => temp.DateOfBirth)</th>
+                <td class="col-md-6"> @Html.DisplayFor(temp => temp.DateOfBirth)</td>
+            </tr>
+
+            <tr>
+                <th class="col-md-6">@Html.LabelFor(temp => temp.City)</th>
+                <td class="col-md-6"> @Html.DisplayFor(temp => temp.City)</td>
+            </tr>
+            <tr>
+                <th class="col-md-6">@Html.LabelFor(temp => temp.Country)</th>
+                <td class="col-md-6"> @Html.DisplayFor(temp => temp.Country)</td>
+            </tr>
+        </table>
+
+    }
+</div>
+<p>
+    <a href="~/Home/Index">Back</a>
+</p>

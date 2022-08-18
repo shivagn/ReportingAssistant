@@ -1,0 +1,32 @@
+﻿<script>
+    $(document).ready(function () {
+
+        $('.collapsed').click(function () {
+            //debugger;
+            //$('.collapse').collapse('hide');
+            let t = $(this.dataset.target);
+            t.collapse('toggle');
+
+        });
+    });
+</script>
+
+@{
+    ViewBag.Title = "Issues";
+}
+
+<h2>Issues</h2>
+
+
+    @for (int i = 0; i < ViewBag.Users.Count; i++)
+    {
+
+        <br />
+        <h6>@ViewBag.Users[i].UserName</h6>
+        <div>
+            @{ Html.RenderAction("DisplayUsersCard", "Issue", new { userID = ViewBag.Users[i].Id, userName = ViewBag.Users[i].UserName, date = DateTime.Today }); }
+
+            @{ Html.RenderAction("DisplayUsersCard", "Issue", new { userID = ViewBag.Users[i].Id, userName = ViewBag.Users[i].UserName, date = DateTime.Today.AddDays(-1) }); }
+        </div>
+    }
+

@@ -1,0 +1,33 @@
+﻿@model Reporting.DomainModels.TaskDone
+
+
+@using (Html.BeginForm("AddTaskDone", "Task", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="card">
+        <div class="form-row card-header">
+               <div class="form-group ">
+                   <table>
+                       <tr>
+                           <td class="col-md-6">
+                                @Html.LabelFor(temp => temp.Projects)
+                                @Html.DropDownListFor(temp => temp.ProjectID, new SelectList(ViewBag.Projects, "ProjectID", "ProjectName"), "Please Select", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(temp => temp.ProjectID)
+                           </td>                          
+                           <td class="col-md-6">
+                                @Html.TextBoxFor(temp => temp.Screen, new { placeholder = "Screen Name", @class = "form-control" })
+                           </td>
+                       </tr>
+                   </table>
+                                                       
+               </div>
+        </div>
+        <div class="card-body">
+            @Html.TextAreaFor(temp => temp.Description, new { placeholder = "Description", @class = "form-control" })
+
+            <div class="row">
+                @Html.HiddenFor(temp=>temp.DateOfTaskDone, new { Value = @ViewBag.Date })
+                <button type="submit" class="btn btn-light">Add Task Done</button>
+            </div>
+        </div>
+    </div>
+}

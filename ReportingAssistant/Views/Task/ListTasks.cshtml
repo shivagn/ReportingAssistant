@@ -1,0 +1,12 @@
+﻿@model List<Reporting.DomainModels.Task>
+
+<div class="tab-content">
+
+    @foreach (var item in Model)
+    {
+        <br/>
+        Html.RenderAction("DisplaySingleTask", "Task", new { task = item });
+    }  
+ </div>
+
+

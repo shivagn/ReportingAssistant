@@ -1,0 +1,22 @@
+﻿@model List<Reporting.DomainModels.TaskDone>
+
+
+@for (int i = 0; i < Model.Count; i++)
+ { 
+    <br />
+    <div class="card" id="TaskDone">
+        <div class="card-header">
+            @Html.TextBoxFor(temp => Model[i].Screen, new { placeholder = Model[i].Screen, @class = "form-control" })
+        </div>
+
+        <div class="card-body">
+            @Html.TextAreaFor(temp => Model[i].Description, new { placeholder = Model[i].Description, @class = "form-control" })
+        </div>
+    </div>
+    <div>
+        @Html.HiddenFor(temp=> Model[i].TaskDoneID)
+        @Html.HiddenFor(temp=> Model[i].DateOfTaskDone)
+    </div>
+}
+
+@*<hidden>@ViewBag.ListTasksDone = @Model</hidden>*@

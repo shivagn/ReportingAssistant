@@ -1,0 +1,31 @@
+﻿@model Reporting.DomainModels.ViewModels.LoginViewModel
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+@using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form-control" }))
+{
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            @Html.LabelFor(temp => temp.username)
+            @Html.TextBoxFor(temp => temp.username, new { placeholder = "username", @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            @Html.LabelFor(temp => temp.Password)
+            @Html.PasswordFor(temp => temp.Password, new { placeholder = "Password", @class = "form-control" })
+        </div>
+    </div>
+
+    <div>
+        @Html.ValidationSummary()
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary"> Login </button>
+    </div>
+
+
+}

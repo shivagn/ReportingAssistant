@@ -1,0 +1,387 @@
+﻿<script src="~/Scripts/bootstrap.js"></script>
+@{
+    ViewBag.Title = "My Issues";
+}
+<script>
+    $(document).ready(function () {
+        
+        $('.collapsed').click(function () {
+            //debugger;
+            //$('.collapse').collapse('hide');
+            let t = $(this.dataset.target);
+            t.collapse('toggle');
+
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+
+        $('#Submit').click(function () {
+            debugger;
+            let t = $('#test');
+            
+
+        });
+    });
+</script>
+<h2>My Issues</h2>
+
+<div class="container">
+
+    @*@using (Html.BeginForm("Save", "Task", new { tasksDone = ViewBag.ListTasksDone }, FormMethod.Post))*@
+    @using (Html.BeginForm("Save", "Task", FormMethod.Post))
+
+    {
+        <div class="row">
+            <div class="col-md-12 bg-light a-right">
+                <button id="Submit" type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </div>    
+     }
+    <div id="accordion">
+        <div class="card">
+            <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        @ViewBag.Today.ToLongDateString()
+                    </button>
+                </h5>
+            </div>
+
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body">
+                    <div class="card">
+                        <div class="card-header" id="headingOneOne">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOneOne" aria-expanded="false" aria-controls="collapseOneOne">
+                                    Task Assigned
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseOneOne" class="collapse" aria-labelledby="headingOneOne" data-parent="#accordion">
+                            <div class="card-body">
+                                <nav>
+                                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                        @foreach (var item in ViewBag.Admins)
+                                        {
+
+                                            if (ViewBag.Admins[0] == item)
+                                            {
+                                                <button class="nav-link active" id="nav-@item.UserName-tab" data-bs-toggle="tab" data-bs-target="#nav-@item.UserName" type="button" role="tab" aria-controls="nav-@item.UserName" aria-selected="true">@item.UserName</button>
+                                            }
+                                            else
+                                            {
+                                                <button class="nav-link" id="nav-@item.UserName-tab" data-bs-toggle="tab" data-bs-target="#nav-@item.UserName" type="button" role="tab" aria-controls="nav-@item.UserName" aria-selected="true">@item.UserName</button>
+                                            }
+                                        }
+                                    </div>
+                                </nav>
+
+
+                                <div class="tab-content" id="myTabContent">
+                                    @foreach (var item in ViewBag.Admins)
+                                    {
+                                        if (ViewBag.Admins[0] == item)
+                                        {
+
+                                            <div class="tab-pane fade show active" id="nav-@item.UserName" role="tabpanel" aria-labelledby="nav-@item.UserName-tab">
+
+                                                @{ Html.RenderAction("DisplayTasksList", "Task", new { AdminID = item.Id, date = ViewBag.Today }); }
+
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="tab-pane fade" id="nav-@item.UserName" role="tabpanel" aria-labelledby="nav-@item.UserName-tab">
+
+                                                @{ Html.RenderAction("DisplayTasksList", "Task", new { AdminID = item.Id, date = ViewBag.Today }); }
+
+                                            </div>
+                                        }
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    @* ************************************
+                        ////////////Area Task Done //////////////
+                        ////////////needs to be saved/////////////
+                             *********************************@
+                
+                    <div class="card">
+                        <div class="card-header" id="headingTasksDone">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTaksDoneList" aria-expanded="false" aria-controls="collapseTaksDoneList">
+                                    Tasks Done
+                                </button>
+                            </h5>
+                        </div>
+                       
+                        
+                        <div id="collapseTaksDoneList" class="collapse" aria-labelledby="headingTasksDone" data-parent="#accordion">
+                            <div class="card-body">
+                               
+                                
+                                <form method="post" action="~/Task/Save">
+                                    <div id="test">
+                                        @{ Html.RenderAction("DisplayTasksDoneList", "Task", new { date = ViewBag.Today });}
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12 bg-light a-right">
+                                            <button type="submit" class="btn btn-primary">Save</button>
+                                        </div>
+                                    </div>
+                                </form>
+
+
+                                    <br />
+                                    <div>
+                                        <h5 class="mb-0">
+                                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseCreate" aria-expanded="false" aria-controls="collapseCreate">
+                                                Create New TaskDone
+                                            </button>
+                                        </h5>
+                                    </div>
+                                    <div id="collapseCreate" class="collapse" aria-labelledby="collapseCreate" data-parent="#accordion">
+                                        @{ Html.RenderAction("AddTaskDone", "Task", new { date = ViewBag.Today });}
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+               
+
+
+
+                    <div class="card">
+                        <div class="card-header" id="headingFinalCommentToday">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFinalCommentsTd" aria-expanded="false" aria-controls="collapseFinalCommentsTd">
+                                    Final Comments
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseFinalCommentsTd" class="collapse" aria-labelledby="headingFinalCommentToday" data-parent="#accordion">
+                            <div class="card-body">
+                                <nav>
+                                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                        @foreach (var item in ViewBag.Admins)
+                                        {
+
+                                            if (ViewBag.Admins[0] == item)
+                                            {
+                                                <button class="nav-link active" id="nav-@item.UserName-tab-fc" data-bs-toggle="tab" data-bs-target="#nav-@item.UserName-fc" type="button" role="tab" aria-controls="nav-@item.UserName-fc" aria-selected="true">@item.UserName</button>
+                                            }
+                                            else
+                                            {
+                                                <button class="nav-link" id="nav-@item.UserName-tab-fc" data-bs-toggle="tab" data-bs-target="#nav-@item.UserName-fc" type="button" role="tab" aria-controls="nav-@item.UserName-fc" aria-selected="true">@item.UserName</button>
+                                            }
+                                        }
+                                    </div>
+                                </nav>
+
+                                <div class="tab-content" id="myTabContent">
+                                    @foreach (var item in ViewBag.Admins)
+                                    {
+                                        if (ViewBag.Admins[0] == item)
+                                        {
+
+                                            <div class="tab-pane fade show active" id="nav-@item.UserName-fc" role="tabpanel" aria-labelledby="nav-@item.UserName-tab-fc">
+
+                                                @{ Html.RenderAction("DisplayFinalCommentsList", "Task", new { AdminID = item.Id, date = ViewBag.Today }); }
+
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="tab-pane fade" id="nav-@item.UserName-fc" role="tabpanel" aria-labelledby="nav-@item.UserName-tab-fc">
+
+                                                @{ Html.RenderAction("DisplayFinalCommentsList", "Task", new { AdminID = item.Id, date = ViewBag.Today }); }
+
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        @*Section Yesterday*@
+        <div class="card">
+            <div class="card-header" id="headingTwo">
+                <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        @ViewBag.Yesterday.ToLongDateString()
+                    </button>
+                </h5>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                <div class="card-body">
+                    <div class="card">
+                        <div class="card-header" id="headingTwoOne">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwoOne" aria-expanded="false" aria-controls="collapseTwoOne">
+                                    Task Assigned
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseTwoOne" class="collapse" aria-labelledby="headingTwoOne" data-parent="#accordion">
+                            <div class="card-body">
+                                <nav>
+                                    <div class="nav nav-tabs" id="nav-tab-cm" role="tablist">
+                                        @foreach (var item in ViewBag.Admins)
+                                        {
+
+                                            if (ViewBag.Admins[0] == item)
+                                            {
+                                                <button class="nav-link active" id="nav-@item.UserName-tab-TAY" data-bs-toggle="tab" data-bs-target="#nav-@item.UserName-TAY" type="button" role="tab" aria-controls="nav-@item.UserName-TAY" aria-selected="true">@item.UserName</button>
+                                            }
+                                            else
+                                            {
+                                                <button class="nav-link" id="nav-@item.UserName-tab-TAY" data-bs-toggle="tab" data-bs-target="#nav-@item.UserName-TAY" type="button" role="tab" aria-controls="nav-@item.UserName-TAY" aria-selected="true">@item.UserName</button>
+                                            }
+                                        }
+                                    </div>
+                                </nav>
+                                <div class="tab-content" id="myTabContentCm">
+                                    @foreach (var item in ViewBag.Admins)
+                                    {
+                                        if (ViewBag.Admins[0] == item)
+                                        {
+
+                                            <div class="tab-pane fade show active" id="nav-@item.UserName-TAY" role="tabpanel" aria-labelledby="nav-@item.UserName-tab-TAY">
+
+                                                @{ Html.RenderAction("DisplayTasksList", "Task", new { AdminID = item.Id, date = ViewBag.Yesterday }); }
+
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="tab-pane fade" id="nav-@item.UserName-TAY" role="tabpanel" aria-labelledby="nav-@item.UserName-tab-TAY">
+
+                                                @{ Html.RenderAction("DisplayTasksList", "Task", new { AdminID = item.Id, date = ViewBag.Yesterday }); }
+
+                                            </div>
+                                        }
+                                    }
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header" id="headingTwoTwo">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwoTwo" aria-expanded="false" aria-controls="collapseTwoTwo">
+                                    Tasks Done
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseTwoTwo" class="collapse" aria-labelledby="headingTwoTwo" data-parent="#accordion">
+                            <div class="card-body">
+                               
+                                <form method="post" action="~/Task/Save">
+                                    <div id="test">
+                                        @{ Html.RenderAction("DisplayTasksDoneList", "Task", new { date = ViewBag.Yesterday });}
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-12 bg-light a-right">
+                                            <button type="submit" class="btn btn-primary">Save</button>
+                                        </div>
+                                    </div>
+                                </form>
+                               
+
+                                <br />
+                                <div>
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseCreateY" aria-expanded="false" aria-controls="collapseCreateY">
+                                            Create New TaskDone
+                                        </button>
+                                    </h5>
+                                </div>
+                                <div id="collapseCreateY" class="collapse" aria-labelledby="collapseCreateY" data-parent="#accordion">
+                                    @{ Html.RenderAction("AddTaskDone", "Task", new { date = ViewBag.Yesterday });}
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header" id="headingTwoThree">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwoThree" aria-expanded="false" aria-controls="collapsetwoThree">
+                                    Final Comments
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseTwoThree" class="collapse" aria-labelledby="headingTwoThree" data-parent="#accordion">
+                            <div class="card-body">
+                                <nav>
+                                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                        @foreach (var item in ViewBag.Admins)
+                                        {
+
+                                            if (ViewBag.Admins[0] == item)
+                                            {
+                                                <button class="nav-link active" id="nav-@item.UserName-tab-fcY" data-bs-toggle="tab" data-bs-target="#nav-@item.UserName-fcY" type="button" role="tab" aria-controls="nav-@item.UserName-fcY" aria-selected="true">@item.UserName</button>
+                                            }
+                                            else
+                                            {
+                                                <button class="nav-link" id="nav-@item.UserName-tab-fcY" data-bs-toggle="tab" data-bs-target="#nav-@item.UserName-fcY" type="button" role="tab" aria-controls="nav-@item.UserName-fcY" aria-selected="true">@item.UserName</button>
+                                            }
+                                        }
+                                    </div>
+                                </nav>
+
+                                <div class="tab-content" id="myTabContent">
+                                    @foreach (var item in ViewBag.Admins)
+                                    {
+                                        if (ViewBag.Admins[0] == item)
+                                        {
+
+                                            <div class="tab-pane fade show active" id="nav-@item.UserName-fcY" role="tabpanel" aria-labelledby="nav-@item.UserName-tab-fcY">
+
+                                                @{ Html.RenderAction("DisplayFinalCommentsList", "Task", new { AdminID = item.Id, date = ViewBag.Yesterday }); }
+
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="tab-pane fade" id="nav-@item.UserName-fcY" role="tabpanel" aria-labelledby="nav-@item.UserName-tab-fcY">
+
+                                                @{ Html.RenderAction("DisplayFinalCommentsList", "Task", new { AdminID = item.Id, date = ViewBag.Yesterday }); }
+
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        @Html.ValidationSummary()
+    </div>
+     
+</div>

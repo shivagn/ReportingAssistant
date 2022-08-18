@@ -1,0 +1,123 @@
+﻿
+<div class="card">
+    <div class="card-header" id="heading-@ViewBag.UserName-@ViewBag.day">
+        <h5 class="mb-0">
+            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseDate-@ViewBag.UserName-@ViewBag.day" aria-expanded="false" aria-controls="collapseDate-@ViewBag.UserName-@ViewBag.day">
+                @ViewBag.Date
+            </button>
+        </h5>
+    </div>
+    <div id="collapseDate-@ViewBag.UserName-@ViewBag.day" class="collapse" aria-labelledby="heading-@ViewBag.UserName-@ViewBag.day" data-parent="#accordion">
+        <div class="card-body">
+            
+          
+            
+
+            <div class="card">
+                <div class="card-header" id="headingTasks-@ViewBag.UserName-@ViewBag.day">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTasks-@ViewBag.UserName-@ViewBag.day" aria-expanded="false" aria-controls="collapseTasks-@ViewBag.UserName-@ViewBag.day">
+                            Task Assigned
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseTasks-@ViewBag.UserName-@ViewBag.day" class="collapse" aria-labelledby="headingTasks-@ViewBag.UserName-@ViewBag.day" data-parent="#accordion">
+                    <div class="card-body">
+                       
+                       
+                        @using (Html.BeginForm("UpdateTasks", "Issue", new { Area = "Admin" }, FormMethod.Post))
+                         {
+                            <div class="tab-content" id="myTabContent">
+
+                                @{ Html.RenderAction("DisplayTasksList", "Issue", new { UserID = ViewBag.UserID, date = ViewBag.Date }); }
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12 bg-light a-right">
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                </div>
+                            </div>
+                         }
+
+                        <br />
+                        <div>
+                            <h5 class="mb-0">
+                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseCreateAssignedTask-@ViewBag.UserName-@ViewBag.day" aria-expanded="false" aria-controls="collapseCreateAssignedTask-@ViewBag.UserName-@ViewBag.day">
+                                    Create New TaskDone
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="collapseCreateAssignedTask-@ViewBag.UserName-@ViewBag.day" class="collapse" aria-labelledby="collapseCreateAssignedTask-@ViewBag.UserName-@ViewBag.day" data-parent="#accordion">
+                            @{ Html.RenderAction("AddTaskAssigned", "Issue", new { UserID = ViewBag.UserID, date = ViewBag.Date });}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="card">
+                <div class="card-header" id="headingTasksDone-@ViewBag.UserName-@ViewBag.day">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTaksDoneList-@ViewBag.UserName-@ViewBag.day" aria-expanded="false" aria-controls="collapseTaksDoneList-@ViewBag.UserName-@ViewBag.day">
+                            Tasks Done
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseTaksDoneList-@ViewBag.UserName-@ViewBag.day" class="collapse" aria-labelledby="headingTasksDone-@ViewBag.UserName-@ViewBag.day" data-parent="#accordion">
+                    <div class="card-body">
+                        <div>
+                            @{ Html.RenderAction("DisplayTasksDoneList", "Issue", new { date = ViewBag.Date });}
+                        </div>
+                        <div>
+                            <input type="hidden" id="hdnListTasksDone" value="@ViewBag.ListTasksDone" />
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headingFinalComment-@ViewBag.UserName-@ViewBag.day">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFinalComment-@ViewBag.UserName-@ViewBag.day" aria-expanded="false" aria-controls="collapseFinalComment-@ViewBag.UserName-@ViewBag.day">
+                            Final Comments
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseFinalComment-@ViewBag.UserName-@ViewBag.day" class="collapse" aria-labelledby="headingFinalComment-@ViewBag.UserName-@ViewBag.day" data-parent="#accordion">
+                    <div class="card-body">
+                       
+                        
+                       
+                         @using (Html.BeginForm("UpdateFinalComments", "Issue", new { Area = "Admin" }, FormMethod.Post))
+                         {
+
+                                <div class="tab-content" id="myTabContent">
+                                    @{ Html.RenderAction("DisplayFinalCommentsList", "Issue", new { UserID = ViewBag.UserID, date = ViewBag.Date }); }
+                                </div>                  
+
+                            <div class="row">
+                                <div class="col-md-12 bg-light a-right">
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                </div>
+                            </div>
+                          }
+
+                            <br />
+                            <div>
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseCreateComment-@ViewBag.UserName-@ViewBag.day" aria-expanded="false" aria-controls="collapseCreateComment-@ViewBag.UserName-@ViewBag.day">
+                                        Create New Final Comment
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseCreateComment-@ViewBag.UserName-@ViewBag.day" class="collapse" aria-labelledby="collapseCreateComment-@ViewBag.UserName-@ViewBag.day" data-parent="#accordion">
+                                @{ Html.RenderAction("AddFinalComment", "Issue", new { UserID = ViewBag.UserID, date = ViewBag.Date });}
+                            </div>
+                    </div>
+
+
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
